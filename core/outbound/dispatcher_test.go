@@ -8,8 +8,8 @@ import (
 
 	"github.com/miekg/dns"
 
-	"github.com/shawn1m/overture/core/common"
-	"github.com/shawn1m/overture/core/config"
+	"github.com/travertexs/overture/core/common"
+	"github.com/travertexs/overture/core/config"
 )
 
 var dispatcher Dispatcher

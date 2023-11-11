@@ -16,11 +16,12 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
-	"github.com/shawn1m/overture/core"
+	"github.com/travertexs/overture/core"
 )
 
 // For auto version building
-//  go build -ldflags "-X main.version=version"
+//
+//	go build -ldflags "-X main.version=version"
 var (
 	version string
 
@@ -60,7 +61,7 @@ func main() {
 	}
 
 	log.Infof("Overture %s", version)
-	log.Info("If you want to use overture safe and sound, please read the README.md first from the project's repo: https://github.com/shawn1m/overture")
+	log.Info("If you want to use overture safe and sound, please read the README.md first from the project's repo: https://github.com/travertexs/overture")
 
 	runtime.GOMAXPROCS(*processorNumber)
 

@@ -1,4 +1,4 @@
-module github.com/shawn1m/overture
+module github.com/travertexs/overture
 
 go 1.18
 

@@ -4,14 +4,14 @@ import (
 	"net"
 
 	"github.com/miekg/dns"
-	"github.com/shawn1m/overture/core/outbound/clients/resolver"
 	log "github.com/sirupsen/logrus"
+	"github.com/travertexs/overture/core/outbound/clients/resolver"
 
-	"github.com/shawn1m/overture/core/cache"
-	"github.com/shawn1m/overture/core/common"
-	"github.com/shawn1m/overture/core/hosts"
-	"github.com/shawn1m/overture/core/matcher"
-	"github.com/shawn1m/overture/core/outbound/clients"
+	"github.com/travertexs/overture/core/cache"
+	"github.com/travertexs/overture/core/common"
+	"github.com/travertexs/overture/core/hosts"
+	"github.com/travertexs/overture/core/matcher"
+	"github.com/travertexs/overture/core/outbound/clients"
 )
 
 type Dispatcher struct {

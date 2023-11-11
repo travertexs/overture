@@ -19,10 +19,10 @@ import (
 	"github.com/coredns/coredns/plugin/pkg/doh"
 	"github.com/coredns/coredns/plugin/pkg/response"
 	"github.com/miekg/dns"
-	"github.com/shawn1m/overture/core/common"
 	log "github.com/sirupsen/logrus"
+	"github.com/travertexs/overture/core/common"
 
-	"github.com/shawn1m/overture/core/outbound"
+	"github.com/travertexs/overture/core/outbound"
 )
 
 type Server struct {

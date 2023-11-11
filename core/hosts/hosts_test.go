@@ -6,7 +6,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/shawn1m/overture/core/finder/full"
+	"github.com/travertexs/overture/core/finder/full"
 )
 
 func TestHosts_Find(t *testing.T) {

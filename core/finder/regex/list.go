@@ -6,7 +6,7 @@
 
 package regex
 
-import "github.com/shawn1m/overture/core/common"
+import "github.com/travertexs/overture/core/common"
 
 type List struct {
 	RegexMap map[string][]string

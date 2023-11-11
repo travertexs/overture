@@ -6,14 +6,15 @@
 package resolver
 
 import (
+	"net"
+	"time"
+
 	"github.com/miekg/dns"
 	"github.com/silenceper/pool"
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/net/proxy"
-	"net"
-	"time"
 
-	"github.com/shawn1m/overture/core/common"
+	"github.com/travertexs/overture/core/common"
 )
 
 type Resolver interface {

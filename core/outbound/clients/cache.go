@@ -11,7 +11,7 @@ import (
 	"github.com/miekg/dns"
 	log "github.com/sirupsen/logrus"
 
-	"github.com/shawn1m/overture/core/cache"
+	"github.com/travertexs/overture/core/cache"
 )
 
 type CacheClient struct {

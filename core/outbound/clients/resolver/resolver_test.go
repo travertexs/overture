@@ -1,11 +1,12 @@
 package resolver
 
 import (
-	"github.com/miekg/dns"
-	"github.com/shawn1m/overture/core/common"
 	"net"
 	"os"
 	"testing"
+
+	"github.com/miekg/dns"
+	"github.com/travertexs/overture/core/common"
 )
 
 var questionDomain = "www.yahoo.com."

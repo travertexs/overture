@@ -49,7 +49,7 @@ def go_build_android(binary_name, version, o, a, p):
                                   "-X main.version=" + version + "\" -o " + binary_name + " main/main.go", shell=True)
 
 def go_build_zip(arches, builder):
-    subprocess.check_call("GOOS=windows go get -v github.com/shawn1m/overture/main", shell=True)
+    subprocess.check_call("GOOS=windows go get -v github.com/travertexs/overture/main", shell=True)
     for o, a, *p in arches:
         zip_name = "overture-" + o + "-" + a + ("-" + (p[0] if p else "") if p else "")
         binary_name = zip_name + (".exe" if o == "windows" else "")

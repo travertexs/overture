@@ -12,10 +12,10 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/shawn1m/overture/core/config"
-	"github.com/shawn1m/overture/core/inbound"
-	"github.com/shawn1m/overture/core/outbound"
 	log "github.com/sirupsen/logrus"
+	"github.com/travertexs/overture/core/config"
+	"github.com/travertexs/overture/core/inbound"
+	"github.com/travertexs/overture/core/outbound"
 )
 
 var (

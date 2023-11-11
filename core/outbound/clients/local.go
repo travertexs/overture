@@ -14,8 +14,8 @@ import (
 
 	"github.com/miekg/dns"
 
-	"github.com/shawn1m/overture/core/common"
-	"github.com/shawn1m/overture/core/hosts"
+	"github.com/travertexs/overture/core/common"
+	"github.com/travertexs/overture/core/hosts"
 )
 
 type LocalClient struct {

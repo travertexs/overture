@@ -12,9 +12,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/shawn1m/overture/core/errors"
-	"github.com/shawn1m/overture/core/finder"
 	log "github.com/sirupsen/logrus"
+	"github.com/travertexs/overture/core/errors"
+	"github.com/travertexs/overture/core/finder"
 )
 
 // Hosts represents a file containing hosts_sample

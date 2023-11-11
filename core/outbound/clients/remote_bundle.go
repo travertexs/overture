@@ -8,11 +8,11 @@ package clients
 
 import (
 	"github.com/miekg/dns"
-	"github.com/shawn1m/overture/core/outbound/clients/resolver"
 	log "github.com/sirupsen/logrus"
+	"github.com/travertexs/overture/core/outbound/clients/resolver"
 
-	"github.com/shawn1m/overture/core/cache"
-	"github.com/shawn1m/overture/core/common"
+	"github.com/travertexs/overture/core/cache"
+	"github.com/travertexs/overture/core/common"
 )
 
 type RemoteClientBundle struct {

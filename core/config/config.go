@@ -26,7 +26,7 @@ import (
 	matchermix "github.com/travertexs/overture/core/matcher/mix"
 	matcherregex "github.com/travertexs/overture/core/matcher/regex"
 	matchersuffix "github.com/travertexs/overture/core/matcher/suffix"
-	"gopkg.in/yaml.v2"
+	"gopkg.in/yaml.v3"
 )
 
 type Config struct {

@@ -5,8 +5,10 @@ import sys
 
 GO_OS_ARCH_LIST = [
     ["darwin", "amd64"],
+    ["darwin", "amd64-v3"],
     ["linux", "386"],
     ["linux", "amd64"],
+    ["linux", "amd64-v3"],
     ["linux", "arm"],
     ["linux", "arm64"],
     ["linux", "mips", "softfloat"],
@@ -17,8 +19,10 @@ GO_OS_ARCH_LIST = [
     ["linux", "mips64le"],
     ["freebsd", "386"],
     ["freebsd", "amd64"],
+    ["freebsd", "amd64-v3"],
     ["windows", "386"],
-    ["windows", "amd64"]
+    ["windows", "amd64"],
+    ["windows", "amd64-v3"]
               ]
 
 GO_IOS_ARCH_LIST = [

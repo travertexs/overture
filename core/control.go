@@ -8,7 +8,6 @@ package core
 import (
 	"encoding/json"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"time"
 
@@ -78,7 +77,7 @@ func ConfigHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func ReloadConfigHandler(w http.ResponseWriter, r *http.Request) {
-	b, err := ioutil.ReadAll(r.Body)
+	b, err := io.ReadAll(r.Body)
 	defer r.Body.Close()
 	if err != nil {
 		http.Error(w, err.Error(), 500)

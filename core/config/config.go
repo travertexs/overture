@@ -8,7 +8,6 @@ import (
 	"bufio"
 	"encoding/json"
 	"io"
-	"io/ioutil"
 	"net"
 	"os"
 	"strconv"
@@ -110,7 +109,7 @@ func NewConfig(configFile string) *Config {
 }
 
 func parseConfigFile(path string) *Config {
-	b, err := ioutil.ReadFile(path)
+	b, err := os.ReadFile(path)
 	if err != nil {
 		log.Fatalf("Failed to read config file: %s", err)
 		os.Exit(1)

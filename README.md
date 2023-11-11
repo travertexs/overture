@@ -1,8 +1,6 @@
 # overture
-[![Build status](https://ci.appveyor.com/api/projects/status/gqrixsfcmmrcaohr/branch/master?svg=true)](https://ci.appveyor.com/project/shawn1m/overture/branch/master)
 [![GoDoc](https://godoc.org/github.com/travertexs/overture?status.svg)](https://godoc.org/github.com/travertexs/overture)
 [![Go Report Card](https://goreportcard.com/badge/github.com/travertexs/overture)](https://goreportcard.com/report/github.com/travertexs/overture)
-[![codecov](https://codecov.io/gh/travertexs/overture/branch/master/graph/badge.svg)](https://codecov.io/gh/travertexs/overture)
 
 Overture is a customized DNS relay server.
 
@@ -37,7 +35,7 @@ For the IP network dispatch, overture will send queries to primary DNS first. Th
 
 ## Installation
 
-The binary releases are available in [releases](https://github.com/shawn1m/overture/releases).
+The binary releases are available in [releases](https://github.com/travertexs/overture/releases).
 
 ## Usages
 
@@ -290,6 +288,7 @@ www.qq.com.     43  IN  A   14.17.42.40
 
 ## Acknowledgements
 
++ [overture](https://github.com/shawn1m/overture): MIT
 + [dns](https://github.com/miekg/dns): BSD-3-Clause
 + [skydns](https://github.com/skynetservices/skydns): MIT
 + [go-dnsmasq](https://github.com/janeczku/go-dnsmasq):  MIT

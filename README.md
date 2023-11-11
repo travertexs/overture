@@ -1,8 +1,8 @@
 # overture
 [![Build status](https://ci.appveyor.com/api/projects/status/gqrixsfcmmrcaohr/branch/master?svg=true)](https://ci.appveyor.com/project/shawn1m/overture/branch/master)
-[![GoDoc](https://godoc.org/github.com/shawn1m/overture?status.svg)](https://godoc.org/github.com/shawn1m/overture)
-[![Go Report Card](https://goreportcard.com/badge/github.com/shawn1m/overture)](https://goreportcard.com/report/github.com/shawn1m/overture)
-[![codecov](https://codecov.io/gh/shawn1m/overture/branch/master/graph/badge.svg)](https://codecov.io/gh/shawn1m/overture)
+[![GoDoc](https://godoc.org/github.com/travertexs/overture?status.svg)](https://godoc.org/github.com/travertexs/overture)
+[![Go Report Card](https://goreportcard.com/badge/github.com/travertexs/overture)](https://goreportcard.com/report/github.com/travertexs/overture)
+[![codecov](https://codecov.io/gh/travertexs/overture/branch/master/graph/badge.svg)](https://codecov.io/gh/travertexs/overture)
 
 Overture is a customized DNS relay server.
 

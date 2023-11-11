@@ -1,7 +1,6 @@
 package hosts
 
 import (
-	"io/ioutil"
 	"net"
 	"os"
 	"testing"
@@ -49,7 +48,7 @@ func TestHosts_Find(t *testing.T) {
 func generateHostsFile(hostLinesString []string) (string, error) {
 
 	var f *os.File
-	f, err := ioutil.TempFile("", "hosts_test")
+	f, err := os.CreateTemp("", "hosts_test")
 	if err != nil {
 		return "", err
 	}

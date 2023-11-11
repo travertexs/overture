@@ -292,7 +292,7 @@ www.qq.com.     43  IN  A   14.17.42.40
 + [dns](https://github.com/miekg/dns): BSD-3-Clause
 + [skydns](https://github.com/skynetservices/skydns): MIT
 + [go-dnsmasq](https://github.com/janeczku/go-dnsmasq):  MIT
-+ [All Contributors](https://github.com/shawn1m/overture/graphs/contributors)
++ [All Contributors](https://github.com/travertexs/overture/graphs/contributors)
 
 ## License
 

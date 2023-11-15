@@ -1,0 +1,54 @@
+name: Python
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+        go: [ '1.21.4' ]
+
+    steps:
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: ${{ matrix.go }}
+
+    - name: Check out code
+      uses: actions/checkout@v2
+      with:
+        path: /tmp/go/src/github.com/travertexs/overture
+
+    - name: Build on macOS
+      if: matrix.os == 'macos-latest'
+      run: |
+        echo Building from macOS
+        go env
+        ls -al
+        python3 ./build.py -create-sample
+        python3 ./build.py -build-ios
+
+    - name: Build on Ubuntu
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        wget https://dl.google.com/android/repository/android-ndk-r16b-linux-x86_64.zip -O /tmp/android-ndk.zip
+        unzip -q /tmp/android-ndk.zip -d /tmp
+        python $ANDROID_NDK_ROOT/build/tools/make_standalone_toolchain.py --api=16 --install-dir=$ANDROID_NDK_ROOT/bin/arm-linux-androideabi/ --arch=arm
+        python $ANDROID_NDK_ROOT/build/tools/make_standalone_toolchain.py --api=21 --install-dir=$ANDROID_NDK_ROOT/bin/aarch64-linux-android/ --arch=arm64
+        python $ANDROID_NDK_ROOT/build/tools/make_standalone_toolchain.py --api=16 --install-dir=$ANDROID_NDK_ROOT/bin/i686-linux-android/ --arch=x86
+        python $ANDROID_NDK_ROOT/build/tools/make_standalone_toolchain.py --api=21 --install-dir=$ANDROID_NDK_ROOT/bin/x86_64-linux-android/ --arch=x86_64
+        python3 ./build.py -create-sample
+        python3 ./build.py -build-android
+        python3 ./build.py -build
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: overture
+        path: overture-*.zip

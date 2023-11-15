@@ -5,10 +5,10 @@ import sys
 
 GO_OS_ARCH_LIST = [
     ["darwin", "amd64"],
-    ["darwin", "amd64-v3"],
+    ["darwin", "amd64", "v3"],
     ["linux", "386"],
     ["linux", "amd64"],
-    ["linux", "amd64-v3"],
+    ["linux", "amd64", "v3"],
     ["linux", "arm"],
     ["linux", "arm64"],
     ["linux", "mips", "softfloat"],
@@ -19,10 +19,10 @@ GO_OS_ARCH_LIST = [
     ["linux", "mips64le"],
     ["freebsd", "386"],
     ["freebsd", "amd64"],
-    ["freebsd", "amd64-v3"],
+    ["freebsd", "amd64", "v3"],
     ["windows", "386"],
     ["windows", "amd64"],
-    ["windows", "amd64-v3"]
+    ["windows", "amd64", "v3"]
               ]
 
 GO_IOS_ARCH_LIST = [
@@ -39,8 +39,12 @@ GO_ANDROID_ARCH_LIST = [
 
 
 def go_build_desktop(binary_name, version, o, a, p):
-    mipsflag = (" GOMIPS=" + (p[0] if p else "") if p else "")
-    subprocess.check_call("GOOS=" + o + " GOARCH=" + a + mipsflag + " CGO_ENABLED=0" + " go build -ldflags \"-s -w " +
+    archflag = ""
+    if a == "amd64":
+        archflag = (" GOAMD64=" + (p[0] if p else "") if p else "")
+    elif a == "mips":
+        archflag = (" GOMIPS=" + (p[0] if p else "") if p else "")
+    subprocess.check_call("GOOS=" + o + " GOARCH=" + a + archflag + " CGO_ENABLED=0" + " go build -ldflags \"-s -w " +
                                   "-X main.version=" + version + "\" -o " + binary_name + " main/main.go", shell=True)
 
 def go_build_ios(binary_name, version, o, a, p):
@@ -58,7 +62,7 @@ def go_build_zip(arches, builder):
         zip_name = "overture-" + o + "-" + a + ("-" + (p[0] if p else "") if p else "")
         binary_name = zip_name + (".exe" if o == "windows" else "")
         #version = subprocess.check_output("git describe --tags", shell=True).decode()
-        version = "v0.0.0-20231115-0"
+        version = "v0.0.0-test"
         try:
             builder(binary_name, version, o, a, p)
             subprocess.check_call("zip " + zip_name + ".zip " + binary_name + " " + "hosts_sample "

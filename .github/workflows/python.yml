@@ -37,9 +37,9 @@ jobs:
       run: |
         wget https://dl.google.com/android/repository/android-ndk-r16b-linux-x86_64.zip -O /tmp/android-ndk.zip
         unzip -q /tmp/android-ndk.zip -d /tmp
-        python $ANDROID_NDK_ROOT/build/tools/make_standalone_toolchain.py --api=16 --install-dir=$ANDROID_NDK_ROOT/bin/arm-linux-androideabi/ --arch=arm
+        python $ANDROID_NDK_ROOT/build/tools/make_standalone_toolchain.py --api=19 --install-dir=$ANDROID_NDK_ROOT/bin/arm-linux-androideabi/ --arch=arm
         python $ANDROID_NDK_ROOT/build/tools/make_standalone_toolchain.py --api=21 --install-dir=$ANDROID_NDK_ROOT/bin/aarch64-linux-android/ --arch=arm64
-        python $ANDROID_NDK_ROOT/build/tools/make_standalone_toolchain.py --api=16 --install-dir=$ANDROID_NDK_ROOT/bin/i686-linux-android/ --arch=x86
+        python $ANDROID_NDK_ROOT/build/tools/make_standalone_toolchain.py --api=19 --install-dir=$ANDROID_NDK_ROOT/bin/i686-linux-android/ --arch=x86
         python $ANDROID_NDK_ROOT/build/tools/make_standalone_toolchain.py --api=21 --install-dir=$ANDROID_NDK_ROOT/bin/x86_64-linux-android/ --arch=x86_64
         python3 ./build.py -create-sample
         python3 ./build.py -build-android

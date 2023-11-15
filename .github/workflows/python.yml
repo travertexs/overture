@@ -58,5 +58,5 @@ jobs:
     - name: Upload artifacts
       uses: softprops/action-gh-release@v1
       with:
-        files: ./overture-*.zip
+        files: ./overture-*
         draft: true

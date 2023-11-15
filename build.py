@@ -24,7 +24,7 @@ GO_OS_ARCH_LIST = [
     ["freebsd", "amd64", "v3"],
     ["windows", "386"],
     ["windows", "amd64"],
-    ["windows", "amd64", "v3"]
+    ["windows", "amd64", "v3"],
     ["windows", "arm", "7"],
     ["windows", "arm64"],
               ]

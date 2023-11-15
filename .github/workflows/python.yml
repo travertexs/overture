@@ -23,6 +23,16 @@ jobs:
     - name: Check out code
       uses: actions/checkout@v3
 
+    - name: Cache go modules
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/go/pkg/mod
+          ~/.cache/go-build
+        key: ${{ matrix.os }}-go-${{ hashFiles('**/go.sum') }}
+        restore-keys: |
+          ${{ matrix.os }}-go-
+
     - name: Build on macOS
       if: matrix.os == 'macos-latest'
       run: |

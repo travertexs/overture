@@ -55,8 +55,44 @@ jobs:
         python3 ./build.py -build-android
         python3 ./build.py -build
 
-    - name: Upload artifacts
-      uses: softprops/action-gh-release@v1
+    - name: Upload artifacts (android)
+      if: matrix.os == 'ubuntu-latest'
+      uses: actions/upload-artifact@v2
       with:
-        files: ./overture-*
-        draft: true
+        name: overture-android
+        path: overture-android-*.zip
+
+    - name: Upload artifacts (darwin-desktop)
+      if: matrix.os == 'ubuntu-latest'
+      uses: actions/upload-artifact@v2
+      with:
+        name: overture-darwin-desktop
+        path: overture-darwin-*.zip
+
+    - name: Upload artifacts (darwin-mobile)
+      if: matrix.os == 'macos-latest'
+      uses: actions/upload-artifact@v2
+      with:
+        name: overture-darwin-mobile
+        path: overture-darwin-*.zip
+
+    - name: Upload artifacts (freebsd)
+      if: matrix.os == 'ubuntu-latest'
+      uses: actions/upload-artifact@v2
+      with:
+        name: overture-freebsd
+        path: overture-freebsd-*.zip
+
+    - name: Upload artifacts (linux)
+      if: matrix.os == 'ubuntu-latest'
+      uses: actions/upload-artifact@v2
+      with:
+        name: overture-linux
+        path: overture-linux-*.zip
+
+    - name: Upload artifacts (windows)
+      if: matrix.os == 'ubuntu-latest'
+      uses: actions/upload-artifact@v2
+      with:
+        name: overture-windows
+        path: overture-windows-*.zip

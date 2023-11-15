@@ -56,7 +56,7 @@ jobs:
         python3 ./build.py -build
 
     - name: Upload artifacts
-      uses: actions/upload-artifact@v2
+      uses: softprops/action-gh-release@v1
       with:
-        name: overture
-        path: overture-*.zip
+        files: bin/*
+        draft: true

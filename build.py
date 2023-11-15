@@ -9,7 +9,9 @@ GO_OS_ARCH_LIST = [
     ["linux", "386"],
     ["linux", "amd64"],
     ["linux", "amd64", "v3"],
-    ["linux", "arm"],
+    ["linux", "arm", "5"],
+    ["linux", "arm", "6"],
+    ["linux", "arm", "7"],
     ["linux", "arm64"],
     ["linux", "mips", "softfloat"],
     ["linux", "mips", "hardfloat"],
@@ -23,6 +25,8 @@ GO_OS_ARCH_LIST = [
     ["windows", "386"],
     ["windows", "amd64"],
     ["windows", "amd64", "v3"]
+    ["windows", "arm", "7"],
+    ["windows", "arm64"],
               ]
 
 GO_IOS_ARCH_LIST = [
@@ -42,6 +46,8 @@ def go_build_desktop(binary_name, version, o, a, p):
     archflag = ""
     if a == "amd64":
         archflag = (" GOAMD64=" + (p[0] if p else "") if p else "")
+    elif a == "arm":
+        archflag = (" GOARM=" + (p[0] if p else "") if p else "")
     elif a == "mips":
         archflag = (" GOMIPS=" + (p[0] if p else "") if p else "")
     subprocess.check_call("GOOS=" + o + " GOARCH=" + a + archflag + " CGO_ENABLED=0" + " go build -ldflags \"-s -w " +

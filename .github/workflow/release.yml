@@ -1,4 +1,3 @@
-Make a syntax error to prevent this workflow from running.
 name: Release
 on: [push]
 jobs:
@@ -29,7 +28,7 @@ jobs:
         env:
           NAME: overture
           BINDIR: bin
-        run: make -j $(go run ./test/main.go) releases
+        run: make -j $(go run ./main/main_test.go) releases
 
       - name: Upload Release
         uses: softprops/action-gh-release@v1

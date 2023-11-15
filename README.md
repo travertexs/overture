@@ -74,8 +74,8 @@ bindAddress: :53
 debugHTTPAddress: 127.0.0.1:5555
 dohEnabled: false
 primaryDNS:
-  - name: DNSPod
-    address: 119.29.29.29:53
+  - name: Cloudflare
+    address: 1.1.1.1:53
     protocol: udp
     socks5Address:
     timeout: 6
@@ -84,8 +84,8 @@ primaryDNS:
       externalIP:
       noCookie: true
 alternativeDNS:
-  - name: 114DNS
-    address: 114.114.114.114:53
+  - name: Google
+    address: 8.8.8.8:53
     protocol: udp
     socks5Address:
     timeout: 6
@@ -229,7 +229,7 @@ IPv6). Overture will handle both TCP and UDP requests. Literal IPv6 addresses ar
 
 #### DNS servers with ECS support
 
-+ DNSPod 119.29.29.29:53
++ Cloudflare 1.1.1.1:53
 
 For DNSPod, ECS might only work via udp, you can test it by [patched dig](https://www.gsic.uva.es/~jnisigl/dig-edns-client-subnet.html) to certify this argument by comparing answers.
  

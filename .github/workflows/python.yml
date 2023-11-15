@@ -16,14 +16,12 @@ jobs:
 
     steps:
     - name: Set up Go
-      uses: actions/setup-go@v2
+      uses: actions/setup-go@v4
       with:
         go-version: ${{ matrix.go }}
 
     - name: Check out code
-      uses: actions/checkout@v2
-      with:
-        path: /tmp/go/src/github.com/travertexs/overture
+      uses: actions/checkout@v3
 
     - name: Build on macOS
       if: matrix.os == 'macos-latest'

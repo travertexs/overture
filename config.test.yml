@@ -2,8 +2,8 @@ bindAddress: :53
 debugHTTPAddress: 127.0.0.1:5555
 dohEnabled: true
 primaryDNS:
-  - name: DNSPod
-    address: 119.29.29.29:53
+  - name: Cloudflare
+    address: 1.1.1.1:53
     protocol: udp
     socks5Address:
     timeout: 6
@@ -12,8 +12,8 @@ primaryDNS:
       externalIP:
       noCookie: true
 alternativeDNS:
-  - name: 114DNS
-    address: 114.114.114.114:53
+  - name: Google
+    address: 8.8.8.8:53
     protocol: udp
     socks5Address:
     timeout: 6

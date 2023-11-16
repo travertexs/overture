@@ -1,9 +1,11 @@
-GOBUILD=go build -ldflags "-s -w -X main.version=$$(git describe --tags)" -o overture-$$GOARCH main/main.go
+NAME=overture
+WORKDIR=workdir
+VERSION=$(shell git describe --tags || shell date -u)
+GOBUILD=CGO_ENABLED=0 go build -ldflags "-s -w -X main.version=$(VERSION)" main/main.go
 
-GO_OS_ARCH_LIST = \
+PLATFORM_LIST = \
 	darwin-amd64 \
 	darwin-amd64-v3 \
-	darwin-arm \
 	darwin-arm64 \
 	linux-386 \
 	linux-amd64 \
@@ -19,34 +21,121 @@ GO_OS_ARCH_LIST = \
 	linux-mips64 \
 	linux-mips64le \
 	linux-riscv64 \
-	linux-loong64 \
 	freebsd-386 \
 	freebsd-amd64 \
 	freebsd-amd64-v3 \
-	windows-386 \
 	windows-amd64 \
 	windows-amd64-v3 \
-	windows-arm64 \
-	windows-armv7
+	windows-arm64
 
 
 .PHONY: create-sample build
 
 create-sample:
-	echo "127.0.0.1 localhost" > ./hosts_sample
-	echo "127.0.0.9/32" > ./ip_network_primary_sample
-	echo "127.0.0.10/32" > ./ip_network_alternative_sample
-	echo "primary.example" > ./domain_primary_sample
-	echo "alternative.example" > ./domain_alternative_sample
-	echo "ttl.example 1000" > ./domain_ttl_sample
+	echo "127.0.0.1 localhost" > $(WORKDIR)/hosts_sample
+	echo "127.0.0.9/32" > $(WORKDIR)/ip_network_primary_sample
+	echo "127.0.0.10/32" > $(WORKDIR)/ip_network_alternative_sample
+	echo "primary.example" > $(WORKDIR)/domain_primary_sample
+	echo "alternative.example" > $(WORKDIR)/domain_alternative_sample
+	echo "ttl.example 1000" > $(WORKDIR)/domain_ttl_sample
+
+darwin-amd64:
+	GOOS=darwin GOARCH=amd64 $(GOBUILD) -o $(WORKDIR)/$(NAME)-$@ \
+	zip $(NAME)-$@.zip $(WORKDIR)/$(NAME)-$@ $(WORKDIR)/hosts_sample $(WORKDIR)/ip_network_primary_sample $(WORKDIR)/ip_network_alternative_sample $(WORKDIR)/domain_primary_sample $(WORKDIR)/domain_alternative_sample $(WORKDIR)/domain_ttl_sample
+
+darwin-amd64-v3:
+	GOOS=darwin GOARCH=amd64 GOAMD64=v3 $(GOBUILD) -o $(WORKDIR)/$(NAME)-$@ \
+	zip $(NAME)-$@.zip $(WORKDIR)/$(NAME)-$@ $(WORKDIR)/hosts_sample $(WORKDIR)/ip_network_primary_sample $(WORKDIR)/ip_network_alternative_sample $(WORKDIR)/domain_primary_sample $(WORKDIR)/domain_alternative_sample $(WORKDIR)/domain_ttl_sample
+
+darwin-arm64:
+	GOOS=darwin GOARCH=arm64 $(GOBUILD) -o $(WORKDIR)/$(NAME)-$@ \
+	zip $(NAME)-$@.zip $(WORKDIR)/$(NAME)-$@ $(WORKDIR)/hosts_sample $(WORKDIR)/ip_network_primary_sample $(WORKDIR)/ip_network_alternative_sample $(WORKDIR)/domain_primary_sample $(WORKDIR)/domain_alternative_sample $(WORKDIR)/domain_ttl_sample
+
+linux-386:
+	GOOS=linux GOARCH=386 $(GOBUILD) -o $(WORKDIR)/$(NAME)-$@ \
+	zip $(NAME)-$@.zip $(WORKDIR)/$(NAME)-$@ $(WORKDIR)/hosts_sample $(WORKDIR)/ip_network_primary_sample $(WORKDIR)/ip_network_alternative_sample $(WORKDIR)/domain_primary_sample $(WORKDIR)/domain_alternative_sample $(WORKDIR)/domain_ttl_sample
+
+linux-amd64:
+	GOOS=linux GOARCH=amd64 $(GOBUILD) -o $(WORKDIR)/$(NAME)-$@ \
+	zip $(NAME)-$@.zip $(WORKDIR)/$(NAME)-$@ $(WORKDIR)/hosts_sample $(WORKDIR)/ip_network_primary_sample $(WORKDIR)/ip_network_alternative_sample $(WORKDIR)/domain_primary_sample $(WORKDIR)/domain_alternative_sample $(WORKDIR)/domain_ttl_sample
+
+linux-amd64-v3:
+	GOOS=linux GOARCH=amd64 GOAMD64=v3 $(GOBUILD) -o $(WORKDIR)/$(NAME)-$@ \
+	zip $(NAME)-$@.zip $(WORKDIR)/$(NAME)-$@ $(WORKDIR)/hosts_sample $(WORKDIR)/ip_network_primary_sample $(WORKDIR)/ip_network_alternative_sample $(WORKDIR)/domain_primary_sample $(WORKDIR)/domain_alternative_sample $(WORKDIR)/domain_ttl_sample
+
+linux-armv5:
+	GOOS=linux GOARCH=arm GOARM=5 $(GOBUILD) -o $(WORKDIR)/$(NAME)-$@ \
+	zip $(NAME)-$@.zip $(WORKDIR)/$(NAME)-$@ $(WORKDIR)/hosts_sample $(WORKDIR)/ip_network_primary_sample $(WORKDIR)/ip_network_alternative_sample $(WORKDIR)/domain_primary_sample $(WORKDIR)/domain_alternative_sample $(WORKDIR)/domain_ttl_sample
+
+linux-armv6:
+	GOOS=linux GOARCH=arm GOARM=6 $(GOBUILD) -o $(WORKDIR)/$(NAME)-$@ \
+	zip $(NAME)-$@.zip $(WORKDIR)/$(NAME)-$@ $(WORKDIR)/hosts_sample $(WORKDIR)/ip_network_primary_sample $(WORKDIR)/ip_network_alternative_sample $(WORKDIR)/domain_primary_sample $(WORKDIR)/domain_alternative_sample $(WORKDIR)/domain_ttl_sample
+
+linux-armv7:
+	GOOS=linux GOARCH=arm GOARM=7 $(GOBUILD) -o $(WORKDIR)/$(NAME)-$@ \
+	zip $(NAME)-$@.zip $(WORKDIR)/$(NAME)-$@ $(WORKDIR)/hosts_sample $(WORKDIR)/ip_network_primary_sample $(WORKDIR)/ip_network_alternative_sample $(WORKDIR)/domain_primary_sample $(WORKDIR)/domain_alternative_sample $(WORKDIR)/domain_ttl_sample
+
+linux-arm64:
+	GOOS=linux GOARCH=arm64 $(GOBUILD) -o $(WORKDIR)/$(NAME)-$@ \
+	zip $(NAME)-$@.zip $(WORKDIR)/$(NAME)-$@ $(WORKDIR)/hosts_sample $(WORKDIR)/ip_network_primary_sample $(WORKDIR)/ip_network_alternative_sample $(WORKDIR)/domain_primary_sample $(WORKDIR)/domain_alternative_sample $(WORKDIR)/domain_ttl_sample
+
+linux-mips-softfloat:
+	GOOS=linux GOARCH=mips GOMIPS=softfloat $(GOBUILD) -o $(WORKDIR)/$(NAME)-$@ \
+	zip $(NAME)-$@.zip $(WORKDIR)/$(NAME)-$@ $(WORKDIR)/hosts_sample $(WORKDIR)/ip_network_primary_sample $(WORKDIR)/ip_network_alternative_sample $(WORKDIR)/domain_primary_sample $(WORKDIR)/domain_alternative_sample $(WORKDIR)/domain_ttl_sample
+
+linux-mips-hardfloat:
+	GOOS=linux GOARCH=mips GOMIPS=hardfloat $(GOBUILD) -o $(WORKDIR)/$(NAME)-$@ \
+	zip $(NAME)-$@.zip $(WORKDIR)/$(NAME)-$@ $(WORKDIR)/hosts_sample $(WORKDIR)/ip_network_primary_sample $(WORKDIR)/ip_network_alternative_sample $(WORKDIR)/domain_primary_sample $(WORKDIR)/domain_alternative_sample $(WORKDIR)/domain_ttl_sample
+
+linux-mipsle-softfloat:
+	GOOS=linux GOARCH=mipsle GOMIPS=softfloat $(GOBUILD) -o $(WORKDIR)/$(NAME)-$@ \
+	zip $(NAME)-$@.zip $(WORKDIR)/$(NAME)-$@ $(WORKDIR)/hosts_sample $(WORKDIR)/ip_network_primary_sample $(WORKDIR)/ip_network_alternative_sample $(WORKDIR)/domain_primary_sample $(WORKDIR)/domain_alternative_sample $(WORKDIR)/domain_ttl_sample
+
+linux-mipsle-hardfloat:
+	GOOS=linux GOARCH=mipsle GOMIPS=hardfloat $(GOBUILD) -o $(WORKDIR)/$(NAME)-$@ \
+	zip $(NAME)-$@.zip $(WORKDIR)/$(NAME)-$@ $(WORKDIR)/hosts_sample $(WORKDIR)/ip_network_primary_sample $(WORKDIR)/ip_network_alternative_sample $(WORKDIR)/domain_primary_sample $(WORKDIR)/domain_alternative_sample $(WORKDIR)/domain_ttl_sample
+
+linux-mips64:
+	GOOS=linux GOARCH=mips64 $(GOBUILD) -o $(WORKDIR)/$(NAME)-$@ \
+	zip $(NAME)-$@.zip $(WORKDIR)/$(NAME)-$@ $(WORKDIR)/hosts_sample $(WORKDIR)/ip_network_primary_sample $(WORKDIR)/ip_network_alternative_sample $(WORKDIR)/domain_primary_sample $(WORKDIR)/domain_alternative_sample $(WORKDIR)/domain_ttl_sample
+
+linux-mips64le:
+	GOOS=linux GOARCH=mips64le $(GOBUILD) -o $(WORKDIR)/$(NAME)-$@ \
+	zip $(NAME)-$@.zip $(WORKDIR)/$(NAME)-$@ $(WORKDIR)/hosts_sample $(WORKDIR)/ip_network_primary_sample $(WORKDIR)/ip_network_alternative_sample $(WORKDIR)/domain_primary_sample $(WORKDIR)/domain_alternative_sample $(WORKDIR)/domain_ttl_sample
+
+linux-riscv64:
+	GOOS=linux GOARCH=riscv64 $(GOBUILD) -o $(WORKDIR)/$(NAME)-$@ \
+	zip $(NAME)-$@.zip $(WORKDIR)/$(NAME)-$@ $(WORKDIR)/hosts_sample $(WORKDIR)/ip_network_primary_sample $(WORKDIR)/ip_network_alternative_sample $(WORKDIR)/domain_primary_sample $(WORKDIR)/domain_alternative_sample $(WORKDIR)/domain_ttl_sample
+
+freebsd-386:
+	GOOS=freebsd GOARCH=386 $(GOBUILD) -o $(WORKDIR)/$(NAME)-$@ \
+	zip $(NAME)-$@.zip $(WORKDIR)/$(NAME)-$@ $(WORKDIR)/hosts_sample $(WORKDIR)/ip_network_primary_sample $(WORKDIR)/ip_network_alternative_sample $(WORKDIR)/domain_primary_sample $(WORKDIR)/domain_alternative_sample $(WORKDIR)/domain_ttl_sample
+
+freebsd-amd64:
+	GOOS=freebsd GOARCH=amd64 $(GOBUILD) -o $(WORKDIR)/$(NAME)-$@ \
+	zip $(NAME)-$@.zip $(WORKDIR)/$(NAME)-$@ $(WORKDIR)/hosts_sample $(WORKDIR)/ip_network_primary_sample $(WORKDIR)/ip_network_alternative_sample $(WORKDIR)/domain_primary_sample $(WORKDIR)/domain_alternative_sample $(WORKDIR)/domain_ttl_sample
+
+freebsd-amd64-v3:
+	GOOS=freebsd GOARCH=amd64 GOAMD64=v3 $(GOBUILD) -o $(WORKDIR)/$(NAME)-$@ \
+	zip $(NAME)-$@.zip $(WORKDIR)/$(NAME)-$@ $(WORKDIR)/hosts_sample $(WORKDIR)/ip_network_primary_sample $(WORKDIR)/ip_network_alternative_sample $(WORKDIR)/domain_primary_sample $(WORKDIR)/domain_alternative_sample $(WORKDIR)/domain_ttl_sample
+
+freebsd-arm64:
+	GOOS=freebsd GOARCH=arm64 $(GOBUILD) -o $(WORKDIR)/$(NAME)-$@ \
+	zip $(NAME)-$@.zip $(WORKDIR)/$(NAME)-$@ $(WORKDIR)/hosts_sample $(WORKDIR)/ip_network_primary_sample $(WORKDIR)/ip_network_alternative_sample $(WORKDIR)/domain_primary_sample $(WORKDIR)/domain_alternative_sample $(WORKDIR)/domain_ttl_sample
+
+windows-amd64:
+	GOOS=windows GOARCH=amd64 $(GOBUILD) -o $(WORKDIR)/$(NAME)-$@ \
+	zip $(NAME)-$@.zip $(WORKDIR)/$(NAME)-$@ $(WORKDIR)/hosts_sample $(WORKDIR)/ip_network_primary_sample $(WORKDIR)/ip_network_alternative_sample $(WORKDIR)/domain_primary_sample $(WORKDIR)/domain_alternative_sample $(WORKDIR)/domain_ttl_sample
+
+windows-amd64-v3:
+	GOOS=windows GOARCH=amd64 GOAMD64=v3 $(GOBUILD) -o $(WORKDIR)/$(NAME)-$@ \
+	zip $(NAME)-$@.zip $(WORKDIR)/$(NAME)-$@ $(WORKDIR)/hosts_sample $(WORKDIR)/ip_network_primary_sample $(WORKDIR)/ip_network_alternative_sample $(WORKDIR)/domain_primary_sample $(WORKDIR)/domain_alternative_sample $(WORKDIR)/domain_ttl_sample
+
+windows-arm64:
+	GOOS=windows GOARCH=arm64 $(GOBUILD) -o $(WORKDIR)/$(NAME)-$@ \
+	zip $(NAME)-$@.zip $(WORKDIR)/$(NAME)-$@ $(WORKDIR)/hosts_sample $(WORKDIR)/ip_network_primary_sample $(WORKDIR)/ip_network_alternative_sample $(WORKDIR)/domain_primary_sample $(WORKDIR)/domain_alternative_sample $(WORKDIR)/domain_ttl_sample
 
 build:
-	for arch in $(GO_OS_ARCH_LIST); do \
-		make go_build_desktop GOARCH=$$arch; \
+	for platform in $(PLATFORM_LIST); do \
+		make $$platform; \
 	done
-
-go_build_desktop:
-	GOOS=$$(echo $$GOARCH | cut -d'_' -f1) \
-	GOARCH=$$(echo $$GOARCH | cut -d'_' -f2) \
-	CGO_ENABLED=0 $(GOBUILD)
-	zip overture-$$GOARCH.zip overture-$$GOARCH hosts_sample ip_network_primary_sample ip_network_alternative_sample domain_primary_sample domain_alternative_sample domain_ttl_sample

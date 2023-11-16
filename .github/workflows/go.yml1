@@ -13,8 +13,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-
     - name: Set up Go
       uses: actions/setup-go@v4
       with:
@@ -39,8 +37,26 @@ jobs:
         BINDIR: bin
       run: make -j $(go run ./main/main_test.go) releases
 
-    - name: Upload Release
-      uses: softprops/action-gh-release@v1
+    - name: Upload artifacts (darwin)
+      uses: actions/upload-artifact@v2
       with:
-        files: bin/*
-        draft: true
+        name: overture-darwin
+        path: overture-darwin-*.zip
+
+    - name: Upload artifacts (freebsd)
+      uses: actions/upload-artifact@v2
+      with:
+        name: overture-freebsd
+        path: overture-freebsd-*.zip
+
+    - name: Upload artifacts (linux)
+      uses: actions/upload-artifact@v2
+      with:
+        name: overture-linux
+        path: overture-linux-*.zip
+
+    - name: Upload artifacts (windows)
+      uses: actions/upload-artifact@v2
+      with:
+        name: overture-windows
+        path: overture-windows-*.zip

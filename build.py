@@ -4,43 +4,33 @@ import subprocess
 import sys
 
 GO_OS_ARCH_LIST = [
-    ["darwin", "amd64"],
-    ["darwin", "amd64", "v3"],
-    ["linux", "386"],
-    ["linux", "amd64"],
-    ["linux", "amd64", "v3"],
-    ["linux", "arm", "5"],
-    ["linux", "arm", "6"],
-    ["linux", "arm", "7"],
-    ["linux", "arm64"],
-    ["linux", "mips", "softfloat"],
-    ["linux", "mips", "hardfloat"],
-    ["linux", "mipsle", "softfloat"],
-    ["linux", "mipsle", "hardfloat"],
-    ["linux", "mips64"],
-    ["linux", "mips64le"],
-    ["freebsd", "386"],
-    ["freebsd", "amd64"],
-    ["freebsd", "amd64", "v3"],
-    ["windows", "386"],
-    ["windows", "amd64"],
-    ["windows", "amd64", "v3"],
-    ["windows", "arm", "7"],
-    ["windows", "arm64"],
-              ]
-
-GO_IOS_ARCH_LIST = [
-    ["darwin", "arm64"],
-    ["darwin", "arm"]
+    ["darwin" , "386"                  ],
+    ["darwin" , "amd64"                ],
+    ["darwin" , "amd64"   , "v3"       ],
+    ["darwin" , "arm64"                ],
+    ["darwin" , "arm"     , "7"        ],
+    ["linux"  , "386"                  ],
+    ["linux"  , "amd64"                ],
+    ["linux"  , "amd64"   , "v3"       ],
+    ["linux"  , "arm"     , "5"        ],
+    ["linux"  , "arm"     , "6"        ],
+    ["linux"  , "arm"     , "7"        ],
+    ["linux"  , "arm64"                ],
+    ["linux"  , "mips"    , "softfloat"],
+    ["linux"  , "mips"    , "hardfloat"],
+    ["linux"  , "mipsle"  , "softfloat"],
+    ["linux"  , "mipsle"  , "hardfloat"],
+    ["linux"  , "mips64"               ],
+    ["linux"  , "mips64le"             ],
+    ["freebsd", "386"                  ],
+    ["freebsd", "amd64"                ],
+    ["freebsd", "amd64"   , "v3"       ],
+    ["windows", "386"                  ],
+    ["windows", "amd64"                ],
+    ["windows", "amd64"   , "v3"       ],
+    ["windows", "arm"     , "7"        ],
+    ["windows", "arm64"                ],
 ]
-
-GO_ANDROID_ARCH_LIST = [
-    ["android", "arm", "arm-linux-androideabi"],
-    ["android", "arm64", "aarch64-linux-android"],
-    ["android", "386", "i686-linux-android"],
-    ["android", "amd64", "x86_64-linux-android"],
-]
-
 
 def go_build_desktop(binary_name, version, o, a, p):
     archflag = ""
@@ -51,15 +41,6 @@ def go_build_desktop(binary_name, version, o, a, p):
     elif a == "mips":
         archflag = (" GOMIPS=" + (p[0] if p else "") if p else "")
     subprocess.check_call("GOOS=" + o + " GOARCH=" + a + archflag + " CGO_ENABLED=0" + " go build -ldflags \"-s -w " +
-                                  "-X main.version=" + version + "\" -o " + binary_name + " main/main.go", shell=True)
-
-def go_build_ios(binary_name, version, o, a, p):
-    subprocess.check_call("CC=$(go env GOROOT)/misc/ios/clangwrap.sh GOOS=" + o + " GOARCH=" + a + " CGO_ENABLED=1" + " go build -ldflags \"-s -w " +
-                                  "-X main.version=" + version + "\" -o " + binary_name + " main/main.go", shell=True)
-
-def go_build_android(binary_name, version, o, a, p):
-    triple = p[0]
-    subprocess.check_call("CC=$ANDROID_NDK_ROOT/bin/" + triple + "/bin/clang GOOS=" + o + " GOARCH=" + a + " CGO_ENABLED=1" + " go build -ldflags \"-s -w " +
                                   "-X main.version=" + version + "\" -o " + binary_name + " main/main.go", shell=True)
 
 def go_build_zip(arches, builder):
@@ -106,9 +87,3 @@ if __name__ == "__main__":
 
     if "-build" in sys.argv:
         go_build_zip(GO_OS_ARCH_LIST, go_build_desktop)
-    
-    if "-build-ios" in sys.argv:
-        go_build_zip(GO_IOS_ARCH_LIST, go_build_ios)
-    
-    if "-build-android" in sys.argv:
-        go_build_zip(GO_ANDROID_ARCH_LIST, go_build_android)

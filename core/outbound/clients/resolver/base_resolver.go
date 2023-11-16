@@ -77,6 +77,8 @@ func NewResolver(u *common.DNSUpstream) Resolver {
 		resolver = &TCPTLSResolver{BaseResolver: BaseResolver{u}}
 	case "https":
 		resolver = &HTTPSResolver{BaseResolver: BaseResolver{u}}
+	case "http3":
+		resolver = &HTTP3Resolver{BaseResolver: BaseResolver{u}}
 	default:
 		log.Fatalf("Unsupported protocol: %s", u.Protocol)
 		log.Errorf("Create resolver for %s failed", u.Name)

@@ -2,19 +2,23 @@ package resolver
 
 import (
 	"bytes"
+	"context"
+	"crypto/tls"
 	"io"
 	"net"
 	"net/http"
 
 	"github.com/miekg/dns"
+	"github.com/quic-go/quic-go"
+	"github.com/quic-go/quic-go/http3"
 )
 
-type HTTPSResolver struct {
+type HTTP3Resolver struct {
 	BaseResolver
 	client http.Client
 }
 
-func (r *HTTPSResolver) Exchange(q *dns.Msg) (*dns.Msg, error) {
+func (r *HTTP3Resolver) Exchange(q *dns.Msg) (*dns.Msg, error) {
 	request, err := q.Pack()
 	resp, err := r.client.Post(r.dnsUpstream.Address, "application/dns-message",
 		bytes.NewBuffer(request))
@@ -34,15 +38,15 @@ func (r *HTTPSResolver) Exchange(q *dns.Msg) (*dns.Msg, error) {
 	return msg, nil
 }
 
-func (r *HTTPSResolver) Init() error {
+func (r *HTTP3Resolver) Init() error {
 	err := r.BaseResolver.Init()
 	if err != nil {
 		return err
 	}
 	r.client = http.Client{
-		Transport: &http.Transport{
-			Dial: func(network, addr string) (net.Conn, error) {
-				return r.CreateBaseConn()
+		Transport: &http3.RoundTripper{
+			Dial: func(ctx context.Context, addr string, tlsCfg *tls.Config, cfg *quic.Config) (quic.EarlyConnection, error) {
+				return quic.DialEarly(ctx, &net.IPConn{}, &net.UDPAddr{}, tlsCfg, cfg)
 			},
 		},
 	}

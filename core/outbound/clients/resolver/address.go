@@ -22,7 +22,7 @@ func getDefaultPort(protocol string) (port string) {
 		port = "53"
 	case "tcp-tls":
 		port = "853"
-	case "https":
+	case "https", "http3":
 		port = "443"
 	case "socks5":
 		port = "1080"
@@ -33,7 +33,7 @@ func getDefaultPort(protocol string) (port string) {
 // ToNetwork convert dns protocol to network
 func ToNetwork(protocol string) string {
 	switch protocol {
-	case "udp":
+	case "udp", "http3":
 		return "udp"
 	case "tcp", "tcp-tls", "https":
 		return "tcp"

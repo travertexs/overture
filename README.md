@@ -174,7 +174,7 @@ IPv6). Overture will handle both TCP and UDP requests. Literal IPv6 addresses ar
 + primaryDNS/alternativeDNS:
     + name: This field is only used for logging.
     + address: Same rule as BindAddress.
-    + protocol: `tcp`, `udp`, `tcp-tls` or `https`
+    + protocol: `tcp`, `udp`, `tcp-tls`, `https` or `http3`
         + `tcp-tls`: Address format is "servername:port@serverAddress", try one.one.one.one:853 or one.one.one.one:853@1.1.1.1
         + `https`: Just try https://cloudflare-dns.com/dns-query
         +  Check [DNS Privacy Public Resolvers](https://dnsprivacy.org/wiki/display/DP/DNS+Privacy+Public+Resolvers) for more public `tcp-tls`, `https` resolvers.
